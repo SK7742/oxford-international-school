@@ -1,17 +1,22 @@
 package com.sansInfoTech.oxfordInternational.model;
 
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
 @Entity(name = "section")
 public class Section {
 	@Id
-	private Long id;
+	private Long sectionId;
 	private String sectionName;
-	private Standard standard;
+	
+	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<StandardSection> standardSections;
 
 }

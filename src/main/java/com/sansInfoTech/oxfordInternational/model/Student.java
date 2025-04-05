@@ -27,4 +27,10 @@ public class Student {
 	private String address;
 	private LocalDateTime registrationTimeStamp;
 	private String registrationReference;
+	
+	@ManyToOne
+    @JoinColumn(name = "standard_section_id", nullable = false)
+    private StandardSection standardSection;
+
+
 }
