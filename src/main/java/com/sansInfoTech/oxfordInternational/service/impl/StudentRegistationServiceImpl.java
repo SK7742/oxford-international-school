@@ -1,4 +1,4 @@
-package com.sansInfoTech.oxfordInternational.service;
+package com.sansInfoTech.oxfordInternational.service.impl;
 
 
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sansInfoTech.oxfordInternational.http.responseDTO.StudentRegistrationResponseDTO;
 import com.sansInfoTech.oxfordInternational.model.Student;
 import com.sansInfoTech.oxfordInternational.repository.StudentRepository;
+import com.sansInfoTech.oxfordInternational.service.StudentRegistationService;
 import com.sansInfoTech.oxfordInternational.util.StudentUtility;
 
 import lombok.RequiredArgsConstructor;
