@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sansInfoTech.oxfordInternational.constants.Standards;
-import com.sansInfoTech.oxfordInternational.model.Section;
 import com.sansInfoTech.oxfordInternational.model.Standard;
 import com.sansInfoTech.oxfordInternational.service.StandardService;
 
@@ -28,7 +27,7 @@ public class StandardController {
 		return standardService.registerStandard(standard);
 	}
 	
-	@GetMapping("/show-all-standards")
+	@GetMapping("/all-standards")
 	public List<Standard> listSections(){
 		return standardService.fetchSection();
 	}

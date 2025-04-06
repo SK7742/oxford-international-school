@@ -19,17 +19,32 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/v1/section-controller/")
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Controller for managing section-related operations.
+ * Provides endpoints to register a new section and list all sections.
+ */
 public class SectionController {
-	
-	private final SectionService sectionService;
-	
-	@PostMapping("/section")
-	public Section registerSection(@RequestParam Sections section){
-		return sectionService.registerSection(section);
-	}
-	
-	@GetMapping("/section")
-	public List<Section> listSections(){
-		return sectionService.fetchSection();
-	}
+
+    private final SectionService sectionService;
+
+    /**
+     * Registers a new section.
+     *
+     * @param section the section details to be registered
+     * @return the registered Section object
+     */
+    @PostMapping("/section")
+    public Section registerSection(@RequestParam Sections section) {
+        return sectionService.registerSection(section);
+    }
+
+    /**
+     * Fetches a list of all sections.
+     *
+     * @return a list of all registered sections
+     */
+    @GetMapping("/all-sections")
+    public List<Section> listSections() {
+        return sectionService.fetchSection();
+    }
 }

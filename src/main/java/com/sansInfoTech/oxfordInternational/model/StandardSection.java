@@ -1,5 +1,4 @@
 package com.sansInfoTech.oxfordInternational.model;
-import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,8 +19,8 @@ public class StandardSection {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    @OneToMany(mappedBy = "standardSection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Student> students;
+//    @OneToMany(mappedBy = "standardSection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<Student> students;
 
 }
 

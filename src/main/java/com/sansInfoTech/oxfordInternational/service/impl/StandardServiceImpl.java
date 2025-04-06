@@ -29,7 +29,7 @@ public class StandardServiceImpl implements StandardService{
 
 	@Override
 	public List<Standard> fetchSection() {
-		return standardRepository.findAll();
+		return standardRepository.fetchStandards();
 	}
 
 }
