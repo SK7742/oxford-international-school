@@ -1,5 +1,7 @@
 package com.sansInfoTech.oxfordInternational.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.sansInfoTech.oxfordInternational.constants.Standards;
@@ -23,6 +25,11 @@ public class StandardServiceImpl implements StandardService{
 		standard.setStandardId(registerStandard.getValue());
 		standard.setStandardCode(registerStandard.toString());
 		return standardRepository.save(standard);
+	}
+
+	@Override
+	public List<Standard> fetchSection() {
+		return standardRepository.findAll();
 	}
 
 }

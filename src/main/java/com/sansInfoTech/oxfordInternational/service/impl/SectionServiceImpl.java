@@ -1,5 +1,7 @@
 package com.sansInfoTech.oxfordInternational.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.sansInfoTech.oxfordInternational.constants.Sections;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SectionServiceImpl implements SectionService{
 
 	private final SectionRepository sectionRepository;
+	
 	@Override
 	public Section registerSection(Sections registerSection) {
 		log.debug("Registering section {}", registerSection.toString());
@@ -23,6 +26,10 @@ public class SectionServiceImpl implements SectionService{
 		section.setSectionId(registerSection.getValue());
 		section.setSectionName(registerSection.toString());
 		return sectionRepository.save(section);
+	}
+	@Override
+	public List<Section> fetchSection() {
+		return sectionRepository.findAll();
 	}
 
 }

@@ -18,6 +18,8 @@ public enum Standards {
     Standards(long value) {
         this.value = value;
     }
+    
+    
 }
 
 
