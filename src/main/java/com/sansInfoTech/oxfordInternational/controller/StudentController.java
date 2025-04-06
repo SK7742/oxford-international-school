@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +38,10 @@ public class StudentController {
 	@GetMapping("/all-students")
 	public List<Student> allStudents(@RequestParam Standards standard, Sections section){
 		return studentRegistationService.fetchStudents(standard, section);
+	}
+	
+	@PatchMapping("/map-standard-section")
+	public Student mapStudentStandardSection(@RequestParam String registrationRef, Standards standard, Sections section) {
+		return studentRegistationService.mapStandardSection(registrationRef, standard, section);
 	}
 }

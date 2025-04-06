@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.sansInfoTech.oxfordInternational.constants.Sections;
 import com.sansInfoTech.oxfordInternational.constants.Standards;
-import com.sansInfoTech.oxfordInternational.http.responseDTO.StandardMappedSectionsDTO;
 import com.sansInfoTech.oxfordInternational.model.Section;
 import com.sansInfoTech.oxfordInternational.model.Standard;
 import com.sansInfoTech.oxfordInternational.model.StandardSection;
@@ -16,7 +15,6 @@ import com.sansInfoTech.oxfordInternational.repository.SectionRepository;
 import com.sansInfoTech.oxfordInternational.repository.StandardRepository;
 import com.sansInfoTech.oxfordInternational.repository.StandardSectionRepository;
 import com.sansInfoTech.oxfordInternational.service.StandardSectionService;
-import com.sansInfoTech.oxfordInternational.util.StandardSectionUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

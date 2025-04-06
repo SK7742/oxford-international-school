@@ -13,4 +13,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
 
 	List<Student> findAllByStandardSection(StandardSection standardSection);
 
+	Student findByRegistrationReference(String registrationRef);
+
 }

@@ -9,13 +9,8 @@ import org.springframework.stereotype.Service;
 import com.sansInfoTech.oxfordInternational.constants.Sections;
 import com.sansInfoTech.oxfordInternational.constants.Standards;
 import com.sansInfoTech.oxfordInternational.http.responseDTO.StudentRegistrationResponseDTO;
-import com.sansInfoTech.oxfordInternational.model.Section;
-import com.sansInfoTech.oxfordInternational.model.Standard;
 import com.sansInfoTech.oxfordInternational.model.StandardSection;
 import com.sansInfoTech.oxfordInternational.model.Student;
-import com.sansInfoTech.oxfordInternational.repository.SectionRepository;
-import com.sansInfoTech.oxfordInternational.repository.StandardRepository;
-import com.sansInfoTech.oxfordInternational.repository.StandardSectionRepository;
 import com.sansInfoTech.oxfordInternational.repository.StudentRepository;
 import com.sansInfoTech.oxfordInternational.service.StudentRegistationService;
 import com.sansInfoTech.oxfordInternational.util.StudentUtility;
@@ -52,4 +47,11 @@ public class StudentRegistationServiceImpl implements StudentRegistationService 
 		return studentRepository.findAllByStandardSection(standardSection);
 	}
 
+	@Override
+	public Student mapStandardSection(String registrationRef, Standards standard, Sections section) {
+		Student student = studentRepository.findByRegistrationReference(registrationRef);
+		StandardSection standardSection = standardSectionServiceImpl.fetchStandardSection(standard, section);
+		student.setStandardSection(standardSection);
+		return studentRepository.save(student);
+	}
 }

@@ -11,4 +11,6 @@ public interface StudentRegistationService {
 	public StudentRegistrationResponseDTO registerStudent(Student student);
 
 	public List<Student> fetchStudents(Standards standard, Sections section);
+
+	public Student mapStandardSection(String registrationRef, Standards standard, Sections section);
 }
