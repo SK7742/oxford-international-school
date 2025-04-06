@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Standards {
+	NOT_ASSIGNED(0),
     KG(11),
     LKG(12),
     UKG(13),

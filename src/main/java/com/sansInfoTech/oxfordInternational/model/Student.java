@@ -3,6 +3,8 @@ package com.sansInfoTech.oxfordInternational.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +33,7 @@ public class Student {
 	private String registrationReference;
 	
 	@ManyToOne
-    @JoinColumn(name = "standard_section_id", nullable = false)
+    @JoinColumn(name = "standard_section_id", nullable = true)
     private StandardSection standardSection;
 
 

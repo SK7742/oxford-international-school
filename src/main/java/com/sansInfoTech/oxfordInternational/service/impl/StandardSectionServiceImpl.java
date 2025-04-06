@@ -54,5 +54,16 @@ public class StandardSectionServiceImpl implements StandardSectionService{
 		return response;
 		
 	}
+	
+	public StandardSection fetchStandardSection(Standards standard, Sections section) {
+		Standard stan = standardRepository.findById(standard.getValue()).get();
+		Section sec = sectionRepository.findById(section.getValue()).get();
+		
+		StandardSection standardSection = standardSectionRepository.findByStandardAndSection(stan, sec);
+		if(standardSection != null) {
+			return standardSection;
+		}
+		return null;
+	}
 
 }
