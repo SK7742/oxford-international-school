@@ -6,12 +6,13 @@ import java.util.function.Function;
 
 import com.sansInfoTech.oxfordInternational.http.responseDTO.StudentRegistrationResponseDTO;
 import com.sansInfoTech.oxfordInternational.model.Student;
+import com.sansInfoTech.oxfordInternational.model.StudentRegistration;
 
 public class StudentUtility {
 	
-	public static Function<Student, StudentRegistrationResponseDTO> studentRegistrationResponseDTOMapper = student -> {
-		return new StudentRegistrationResponseDTO(student.getStudentId(), student.getFirstName(), student.getLastName(),
-				student.getRegistrationReference());
+	public static Function<StudentRegistration, StudentRegistrationResponseDTO> studentRegistrationResponseDTOMapper = student -> {
+		return new StudentRegistrationResponseDTO(student.getStudent().getStudentId(), 
+				student.getStudent().getFirstName(), student.getStudent().getLastName(), "Test");
 	};
 	
 	public static String registrationReferenceGenerator(String classId) {

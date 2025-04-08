@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sansInfoTech.oxfordInternational.constants.Sections;
 import com.sansInfoTech.oxfordInternational.constants.Standards;
+import com.sansInfoTech.oxfordInternational.http.requestDTO.RegisterStudentRequestDTO;
 import com.sansInfoTech.oxfordInternational.http.responseDTO.StudentRegistrationResponseDTO;
 import com.sansInfoTech.oxfordInternational.model.Student;
+import com.sansInfoTech.oxfordInternational.model.StudentRegistration;
 import com.sansInfoTech.oxfordInternational.service.StudentRegistationService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,7 @@ public class StudentController {
 	private final StudentRegistationService studentRegistationService;
 	
 	@PostMapping("/student")
-	public ResponseEntity<StudentRegistrationResponseDTO> registerStudent(@RequestBody Student student){
+	public ResponseEntity<StudentRegistrationResponseDTO> registerStudent(@RequestBody RegisterStudentRequestDTO student){
 		StudentRegistrationResponseDTO response = studentRegistationService.registerStudent(student);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}

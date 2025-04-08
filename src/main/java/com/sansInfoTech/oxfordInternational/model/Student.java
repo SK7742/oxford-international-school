@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -26,12 +27,9 @@ public class Student {
 	private String primaryContactNumber;
 	private String secondaryContactNumber;
 	private String address;
-	private LocalDateTime registrationTimeStamp;
-	private String registrationReference;
-	
+	private String aadharNumber;
 	@ManyToOne
     @JoinColumn(name = "standard_section_id", nullable = true)
     private StandardSection standardSection;
-
 
 }

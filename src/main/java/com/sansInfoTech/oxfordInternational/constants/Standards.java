@@ -1,5 +1,7 @@
 package com.sansInfoTech.oxfordInternational.constants;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import lombok.Getter;
 
 @Getter
@@ -20,6 +22,11 @@ public enum Standards {
         this.value = value;
     }
     
+    @JsonCreator
+    public static Standards fromString(String value) {
+        return Standards.valueOf(value.toUpperCase());
+    }
+
     
 }
 
