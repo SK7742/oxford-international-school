@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 
 import com.sansInfoTech.oxfordInternational.constants.Standards;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,16 +24,13 @@ public class StudentRegistration {
 	@JoinColumn(name = "Student_studentId")
 	private Student student;
 	private String registrationReference;
-	private LocalDateTime registrationTimeStamp;
+	private LocalDateTime registrationTs;
 	private LocalDateTime recordValidTill;
-	private LocalDateTime recordUpdatedTS;
+	private LocalDateTime recordUpdatedTs;
 	private boolean isRecordActive;
 	private Enum<Standards> appliedForStandard;
-	private Double testScore;
-	private Double maxMarks;
-	private String feedback;
-	private boolean isStudentAccepted;
-	private LocalDateTime testScheduledOn;
 	private Enum<Standards> selectedForStandard;
+	private boolean isStudentAccepted;
 	private boolean isStudentAdmitted;
+	private String comment;
 }

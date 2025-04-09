@@ -11,8 +11,4 @@ public class Section {
 	@Id
 	private Long sectionId;
 	private String sectionName;
-	
-//	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<StandardSection> standardSections;
-	
 }

@@ -18,9 +18,5 @@ public class StandardSection {
     @ManyToOne
     @JoinColumn(name = "section_id")
     private Section section;
-
-//    @OneToMany(mappedBy = "standardSection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<Student> students;
-
 }
 
