@@ -1,6 +1,9 @@
 package com.sansInfoTech.oxfordInternational.model;
 
 import java.time.LocalDate;
+
+import com.sansInfoTech.oxfordInternational.constants.UidType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,17 +20,20 @@ public class Student {
 	private Long studentId;
 	private String firstName;
 	private String lastName;
-	private String fatherFirstName;
-	private String fatherLastName;
-	private String motherFirstName;
-	private String motherLastName;
 	private LocalDate dateOfBirth;
-	private String primaryContactNumber;
-	private String secondaryContactNumber;
-	private String address;
-	private String aadharNumber;
+	private String nationality;
+	private String presentAddress;
+	private String permanentAddress;
+	private String uidNumber;
+	private Enum<UidType> uidType;
+	private String mobile;
+
 	@ManyToOne
     @JoinColumn(name = "standard_section_id", nullable = true)
     private StandardSection standardSection;
+	
+	@ManyToOne
+	@JoinColumn(name = "parent_id", nullable = false)
+	private Parent parent;
 
 }

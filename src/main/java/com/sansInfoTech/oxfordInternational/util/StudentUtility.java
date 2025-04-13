@@ -15,10 +15,10 @@ public class StudentUtility {
 	};
 	
 	public static String registrationReferenceGenerator(RegisterStudentRequestDTO student) {
-		StringBuffer reference = new StringBuffer("OI/");
+		StringBuffer reference = new StringBuffer("OI/REG-REF/");
 		String yearMonth = YearMonth.now().toString();
 		reference.append(yearMonth).append("/")
-		.append(student.getApplyingForstandard()).append("/").append(student.getStudent().getAadharNumber());
+		.append(student.getApplyingForstandard()).append("/").append(student.getStudent().getUidNumber());
 		return reference.toString();
 	}
 }

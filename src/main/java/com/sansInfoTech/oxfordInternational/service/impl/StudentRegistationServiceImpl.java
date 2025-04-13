@@ -2,6 +2,7 @@ package com.sansInfoTech.oxfordInternational.service.impl;
 
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -82,7 +83,9 @@ public class StudentRegistationServiceImpl implements StudentRegistationService 
 		studentRegistration.setRegistrationReference(
 				StudentUtility.registrationReferenceGenerator(student));
 		studentRegistration.setRegistrationTs(now);
-		registrationTest.setStudentRegistration(studentRegistration);
+		
+		registrationTest.setMaxMarks(100);
+		registrationTest.setTestScheduledOn(LocalDateTime.of(now.toLocalDate().plusDays(1), LocalTime.of(13, 0)));
 	}
 
 	@Override

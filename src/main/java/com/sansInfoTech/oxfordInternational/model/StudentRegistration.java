@@ -1,6 +1,7 @@
 package com.sansInfoTech.oxfordInternational.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.sansInfoTech.oxfordInternational.constants.Standards;
 
@@ -9,7 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import lombok.Data;
 
 @Data
@@ -24,6 +27,8 @@ public class StudentRegistration {
 	@JoinColumn(name = "Student_studentId")
 	private Student student;
 	private String registrationReference;
+	private String previousSchoolName;
+	private double marksInLastStandard;
 	private LocalDateTime registrationTs;
 	private LocalDateTime recordValidTill;
 	private LocalDateTime recordUpdatedTs;
@@ -33,4 +38,10 @@ public class StudentRegistration {
 	private boolean isStudentAccepted;
 	private boolean isStudentAdmitted;
 	private String comment;
+	
+	@OneToMany
+	@JoinColumn(name = "registrationTest_id", nullable = true)
+	@OrderBy("testScheduledOn desc")
+	private List<RegistrationTest> tests;
+	
 }

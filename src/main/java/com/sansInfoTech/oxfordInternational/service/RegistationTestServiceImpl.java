@@ -20,11 +20,10 @@ public class RegistationTestServiceImpl implements RegistationTestService{
 	public RegistrationTest scheduleTestForStudent(String registrationRef, LocalDateTime testTime) {
 
 		StudentRegistration studentRegistration = studentRegistationService.fetchStudentDetailsByReference(registrationRef);
-		RegistrationTest registrationTest = registrationTestRepository.findByStudentRegistration(studentRegistration);
-		registrationTest.setMaxMarks(100.0);
-		registrationTest.setTestScheduledOn(testTime);
+		studentRegistration.getTests().get(0).setMaxMarks(100.0);
+		studentRegistration.getTests().get(0).setTestScheduledOn(testTime);
 		studentRegistationService.populateUpdateAuditFields(studentRegistration);
-		return registrationTestRepository.save(registrationTest);
+		return registrationTestRepository.save(studentRegistration.getTests().get(0));
 	
 	}
 
@@ -32,9 +31,11 @@ public class RegistationTestServiceImpl implements RegistationTestService{
 	public RegistrationTest updateTestScore(String registrationRef, Double score, String feedback) {
 		LocalDateTime now = LocalDateTime.now();
 		StudentRegistration studentRegistration = studentRegistationService.fetchStudentDetailsByReference(registrationRef);
-		RegistrationTest registrationTest = registrationTestRepository.findByStudentRegistration(studentRegistration);
-		registrationTest.setTestScore(score);
-		registrationTest.setTestFeedback(feedback);
+		if(studentRegistration.getTests().get(0).getTestAttemptTs() == null) {
+			studentRegistration.getTests().get(0).setTestAttemptTs(LocalDateTime.now().minusHours(2));
+		}
+		studentRegistration.getTests().get(0).setTestScore(score);
+		studentRegistration.getTests().get(0).setTestFeedback(feedback);
 		
 		if(score > 60) {
 			studentRegistration.setSelectedForStandard(studentRegistration.getAppliedForStandard());
@@ -48,16 +49,15 @@ public class RegistationTestServiceImpl implements RegistationTestService{
 		}
 		
 		studentRegistationService.saveRecord(studentRegistration);
-		return registrationTestRepository.save(registrationTest);
+		return registrationTestRepository.save(studentRegistration.getTests().get(0));
 	}
 
 	@Override
 	public String updateTestAttempt(String registrationRef) {
 		StudentRegistration studentRegistration = studentRegistationService.fetchStudentDetailsByReference(registrationRef);
-		RegistrationTest registrationTest = registrationTestRepository.findByStudentRegistration(studentRegistration);
-		registrationTest.setTestAttemptTs(LocalDateTime.now());
-		registrationTestRepository.save(registrationTest);
-		return "Test Attempt time logged";
+		studentRegistration.getTests().get(0).setTestAttemptTs(LocalDateTime.now());
+		registrationTestRepository.save(studentRegistration.getTests().get(0));
+		return "Test Attempt time logged.";
 	}
 	
 
