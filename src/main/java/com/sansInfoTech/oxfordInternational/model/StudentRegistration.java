@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.sansInfoTech.oxfordInternational.constants.Standards;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +25,7 @@ public class StudentRegistration {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Student_studentId")
 	private Student student;
 	private String registrationReference;
@@ -39,7 +41,7 @@ public class StudentRegistration {
 	private boolean isStudentAdmitted;
 	private String comment;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "registrationTest_id", nullable = true)
 	@OrderBy("testScheduledOn desc")
 	private List<RegistrationTest> tests;

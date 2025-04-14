@@ -1,6 +1,8 @@
 package com.sansInfoTech.oxfordInternational.service.impl;
 
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -11,13 +13,16 @@ import com.sansInfoTech.oxfordInternational.constants.Sections;
 import com.sansInfoTech.oxfordInternational.constants.Standards;
 import com.sansInfoTech.oxfordInternational.http.requestDTO.RegisterStudentRequestDTO;
 import com.sansInfoTech.oxfordInternational.http.responseDTO.StudentRegistrationResponseDTO;
+import com.sansInfoTech.oxfordInternational.model.Parent;
 import com.sansInfoTech.oxfordInternational.model.RegistrationTest;
 import com.sansInfoTech.oxfordInternational.model.StandardSection;
 import com.sansInfoTech.oxfordInternational.model.Student;
 import com.sansInfoTech.oxfordInternational.model.StudentRegistration;
+import com.sansInfoTech.oxfordInternational.repository.ParentRepository;
 import com.sansInfoTech.oxfordInternational.repository.RegistrationTestRepository;
 import com.sansInfoTech.oxfordInternational.repository.StudentRegistrationRepository;
 import com.sansInfoTech.oxfordInternational.repository.StudentRepository;
+import com.sansInfoTech.oxfordInternational.service.ReferenceGenerator;
 import com.sansInfoTech.oxfordInternational.service.StudentRegistationService;
 import com.sansInfoTech.oxfordInternational.util.StudentUtility;
 
@@ -32,10 +37,12 @@ public class StudentRegistationServiceImpl implements StudentRegistationService 
 	private final StandardSectionServiceImpl standardSectionServiceImpl;
 	private final StudentRegistrationRepository studentRegistrationRepository;
 	private final RegistrationTestRepository registrationTestRepository;
+	private final ParentRepository parentRepository;
+	private final ReferenceGenerator referenceGenerator;
 	
 
 	@Override
-	public StudentRegistrationResponseDTO registerStudent(RegisterStudentRequestDTO student) {
+	public byte[] registerStudent(RegisterStudentRequestDTO student) throws FileNotFoundException, MalformedURLException {
 		log.debug("Registering Student {}", student.getStudent().getFirstName() + " " + student.getStudent().getLastName());
 		
 		StudentRegistration studentRegistration = new StudentRegistration();
@@ -44,14 +51,24 @@ public class StudentRegistationServiceImpl implements StudentRegistationService 
 		
 		StandardSection standardSection = standardSectionServiceImpl.fetchStandardSection(Standards.NOT_ASSIGNED, Sections.NOT_ASSIGNED);
 		studentRegistration.getStudent().setStandardSection(standardSection);
-		studentRepository.save(studentRegistration.getStudent());
-		studentRegistrationRepository.save(studentRegistration);
-		registrationTestRepository.save(registrationTest);
+		
+		
 		log.info( "Student {} is registered with referenceNo- {}", 
 				studentRegistration.getStudent().getFirstName() + " "
 				+ studentRegistration.getStudent().getLastName(), 
 				studentRegistration.getRegistrationReference());
-		return StudentUtility.studentRegistrationResponseDTOMapper.apply(studentRegistration);
+		
+		byte[] response = referenceGenerator.generateRegistrationReceipt(studentRegistration);
+		Parent parent = parentRepository.findByFatherUidNumberAndFatherContactNumber(
+				student.getStudent().getParent().getFatherUidNumber(), student.getStudent().getParent().getFatherContactNumber());
+		if(parent != null) {
+			log.info("Parents Exists");
+			studentRegistration.getStudent().setParent(parent);
+		}
+		studentRegistrationRepository.save(studentRegistration);
+		
+		
+		return response;
 	}
 
 	@Override
@@ -86,6 +103,7 @@ public class StudentRegistationServiceImpl implements StudentRegistationService 
 		
 		registrationTest.setMaxMarks(100);
 		registrationTest.setTestScheduledOn(LocalDateTime.of(now.toLocalDate().plusDays(1), LocalTime.of(13, 0)));
+		studentRegistration.setTests(List.of(registrationTest));
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package com.sansInfoTech.oxfordInternational.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Service;
 
@@ -25,15 +27,18 @@ import com.sansInfoTech.oxfordInternational.model.StudentRegistration;
 @Service
 public class ReferenceGenerator {
 
-	public String generateRegistrationReceipt(StudentRegistration studentRegistration) throws FileNotFoundException, MalformedURLException {
-		String studentName = studentRegistration.getStudent().getFirstName() + studentRegistration.getStudent().getLastName();
-		String fatherName = studentRegistration.getStudent().getParent().getFatherFirstName() + studentRegistration.getStudent().getParent().getFatherLastName();
+	public byte[] generateRegistrationReceipt(StudentRegistration studentRegistration) throws FileNotFoundException, MalformedURLException {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		String studentName = studentRegistration.getStudent().getFirstName() + " " + studentRegistration.getStudent().getLastName();
+		String fatherName = studentRegistration.getStudent().getParent().getFatherFirstName() + " " + studentRegistration.getStudent().getParent().getFatherLastName();
 		String filePath = "src/main/resources/registrationReceipts" + studentRegistration.getRegistrationReference() + ".pdf";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'at' hh a");
+        String testScheduledDate = studentRegistration.getTests().get(0).getTestScheduledOn().format(formatter);
 
 		File file = new File(filePath);
 		file.getParentFile().mkdirs();
 
-		PdfWriter writer = new PdfWriter(filePath);
+		PdfWriter writer = new PdfWriter(outputStream);
 		PdfDocument pdfDoc = new PdfDocument(writer);
 		Document document = new Document(pdfDoc, PageSize.A4);
 		document.setMargins(30, 30, 30, 30);
@@ -67,18 +72,17 @@ public class ReferenceGenerator {
 		left.setMarginTop(40);
 		left.setWidth(UnitValue.createPercentValue(100));
 
-		left.addCell(getCell("SL. No.", 10, false));
+//		left.addCell(getCell("SL. No.", 10, false));
 		left.addCell(getCell(
-				"Pupil's Name " + studentName,
+				"Reg. No- " + studentRegistration.getRegistrationReference(),10, false));
+		left.addCell(getCell(
+				"Pupil's Name- " + studentName,
 				10, false));
 		left.addCell(getCell(
-				"Father's Name " + fatherName,
+				"Father's Name- " + fatherName,
 				10, false));
 		left.addCell(getCell(
-				"Reg. No. " + studentRegistration.getRegistrationReference()
-				+ " is allowed to appear at the written test scheduled to be held on ." 
-				+ studentRegistration.getTests().get(0).getTestScheduledOn(),
-				10, false));
+				"Entrance test scheduled to be held on- " + testScheduledDate, 10, false));
 
 		table.addCell(new Cell().add(left).setBorder(Border.NO_BORDER));
 
@@ -110,7 +114,7 @@ public class ReferenceGenerator {
 
 		document.close();
 		System.out.println("PDF created: " + filePath);
-		return filePath;
+		return outputStream.toByteArray();
 	}
 
 	private static Cell getCell(String text, float size, boolean bold) {

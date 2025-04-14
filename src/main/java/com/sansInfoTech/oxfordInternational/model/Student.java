@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.sansInfoTech.oxfordInternational.constants.UidType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,11 +29,11 @@ public class Student {
 	private Enum<UidType> uidType;
 	private String mobile;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "standard_section_id", nullable = true)
     private StandardSection standardSection;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", nullable = false)
 	private Parent parent;
 

@@ -1,5 +1,7 @@
 package com.sansInfoTech.oxfordInternational.service;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import com.sansInfoTech.oxfordInternational.model.Student;
 import com.sansInfoTech.oxfordInternational.model.StudentRegistration;
 
 public interface StudentRegistationService {
-	public StudentRegistrationResponseDTO registerStudent(RegisterStudentRequestDTO student);
+	public byte[] registerStudent(RegisterStudentRequestDTO student) throws FileNotFoundException, MalformedURLException;
 
 	public List<Student> fetchStudents(Standards standard, Sections section);
 
