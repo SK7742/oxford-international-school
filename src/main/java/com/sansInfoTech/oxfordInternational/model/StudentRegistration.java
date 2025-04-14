@@ -26,7 +26,7 @@ public class StudentRegistration {
 	private Long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Student_studentId")
+	@JoinColumn(name = "student_id")
 	private Student student;
 	private String registrationReference;
 	private String previousSchoolName;
@@ -42,7 +42,7 @@ public class StudentRegistration {
 	private String comment;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "registrationTest_id", nullable = true)
+	@JoinColumn(name = "registration_id", nullable = true)
 	@OrderBy("testScheduledOn desc")
 	private List<RegistrationTest> tests;
 	
