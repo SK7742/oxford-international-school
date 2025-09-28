@@ -3,6 +3,7 @@ package com.sansInfoTech.oxfordInternational.controller;
 import com.sansInfoTech.oxfordInternational.constants.Role;
 import com.sansInfoTech.oxfordInternational.model.LoginRequest;
 import com.sansInfoTech.oxfordInternational.responseDTO.AuthResponseDTO;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
-
+	
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         log.debug("Received login attempt, for username: {}, password: {}", loginRequest.getUsername(), loginRequest.getPassword());
