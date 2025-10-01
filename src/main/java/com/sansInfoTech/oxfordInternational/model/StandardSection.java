@@ -1,0 +1,22 @@
+package com.sansInfoTech.oxfordInternational.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "standard_section")
+public class StandardSection {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "standard_id")
+    private Standard standard;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "section_id")
+    private Section section;
+}
+
